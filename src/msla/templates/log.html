@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+<div class="container">
+    <div class="col-md-12 col-md-offset-0 main">
+        <div class="page-header">
+            <strong>
+                <h1>Upload Files</h1>
+            </strong>
+        </div>
+        <div class="row placeholders">
+            <!-- Standar Form -->
+            <div class="col-md-5 col-md-offset-0 placeholder">
+                <h3>
+                    <p align="left"> Select files from your computer </p>
+                </h3>
+                <br>
+					<form action="upload" method="post" enctype="multipart/form-data" id="js-upload-form">
+                        <div class="form-inline">
+                            <div class="form-group">
+                            	<input type="hidden" id="nonce" name="nonce" value="{{ session['nonce'] }}">
+                                <input type="file" name="files[]" id="js-upload-files" multiple>
+                            </div>
+                                <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+                        </div>
+					</form>
+				</div>
+				<div class="col-md-12 col-md-offset-0 placeholder">
+                    <h2 class="sub-header">
+                        <strong>Manage file upload</strong>
+                    </h2>
+					<div class="alert alert-info" id="eventsResult" style="height: auto;"> </div>
+                        <table data-toggle="table" id="eventsTable" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-search="true">
+                            <thead>
+                                <tr>
+                                    <th data-align="center" data-sortable="true"><b>ID</b></th>
+                                    <th data-align="center" data-sortable="true"><b>File Name</b></th>
+				    				<th data-align="center" data-sortable="true"><b>Imported to Database</b></th>
+                                    <th data-field="action"  data-align="center" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+				{% for file in fileUpload %}
+                                <tr>
+                                    <td> {{ file.id }}</td>
+                                    <td> {{ file.filename }}</td>
+				    				<td> {{ file.im }}</td>
+                                </tr>
+				{% endfor %}
+			
+                            </tbody>
+                        </table>
+                        <script>
+		function actionFormatter(value, row, index) {
+			return [
+				'<a class="import" style="margin-left: 10px;" href="javascript:void(0)" title="Import to Database">',
+				'<i class="glyphicon glyphicon-expand"></i>',
+				'</a>',
+				'<a class="remove" style="margin-left: 10px;" href="javascript:void(0)" title="Remove">',
+				'<i class="glyphicon glyphicon-sort-by-order"></i>',
+				'</a>'
+				].join('');
+			}
+
+		function httpGet(theUrl){
+			var xmlHttp = null;
+			xmlHttp = new XMLHttpRequest();
+			xmlHttp.open( "GET", theUrl, false );
+			xmlHttp.send( null );
+			return xmlHttp.responseText;
+		}
+
+
+		window.actionEvents = {
+			'click .import': function (e, value, row) {
+				var url = '/importlog/'+row[0];
+				url = url.replace(" ","");
+				var text = httpGet(url);
+				$('#eventsResult').html(text);
+			},
+			'click .remove': function (e, value, row, index) {
+				var url = '/deletelog/'+row[0];
+				url = url.replace(" ","");
+				var text = httpGet(url);
+				$('#eventsResult').html(text);
+			}
+	};
+	
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+{% endblock %}

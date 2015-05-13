@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+<div class="container">
+    <div class="col-md-12 col-md-offset-0 main">
+        <h1 class="page-header">Search</h1>
+        <div id="eventsResult" style="height: auto;"></div>
+        <div id="custom-toolbar">
+			<div class="col-lg-6">
+			<form id="Search Form" action="/search/" method="post" class="form-horizontal">
+			<div class="input-group">
+				<input type="text" name="searchInfo" class="form-control" style="width: 200px;" aria-label="Search" placeholder="Search">
+				<input type="hidden" name="nonce" value="{{ session['nonce'] }}">
+			<div class="input-group-btn">
+				<select class="form-control" name="column">
+					<option value="all">All Column</option>
+					<option value="date">Date</option>
+					<option value="time">Time</option>
+					<option value="source_ip">Source IP</option>
+					<option value="source_port">Source Port</option>
+					<option value="dest_ip">Destination IP</option>
+					<option value="dest_port">Destination Port</option>
+					<option value="get_adr">Get Address</option>
+					<option value="os">OS</option>
+					<option value="browser">Browser</option>
+					<option value="message">Message</option>
+					<option value="detailed_message">Detail Message</option>
+				</select>
+				<button type="submit" class="btn btn-default">Search</button>
+				</div><!-- /btn-group -->
+				</div><!-- /input-group -->
+				</form>
+		</div><!-- /.row -->
+        </div>
+        <table data-toggle="table" id="eventsTable" data-height="700" data-sort-name="name" data-sort-order="desc" data-show-columns="true" data-toolbar="#custom-toolbar">
+            <thead>
+                <tr>
+                    <th data-align="center" data-sortable="true" data-switchable="false">
+                        <b>ID</b>
+                    </th>
+                    <th data-align="center" data-switchable="false">
+                        <b>Date</b>
+                    </th>
+                    <th data-align="center" data-switchable="false">
+                        <b>Time</b>
+                    </th>
+                    <th data-align="center" data-switchable="false" data-sortable="true">
+                        <b>Source IP</b>
+                    </th>
+                    <th data-align="center" data-switchable="false" data-sortable="true">
+                        <b>Source Port</b>
+                    </th>
+                    <th data-align="center" data-visible="false" >
+                        <b>Get Address</b>
+                    </th>
+                    <th data-align="center" data-switchable="true" data-sortable="true">
+                        <b>OS</b>
+                    </th>
+                    <th data-align="center" data-switchable="true" data-sortable="true">
+                        <b>Browser</b>
+                    </th>
+                    <th data-align="center" data-switchable="false">
+                        <b>Message</b>
+                    </th>
+                    <th data-align="center" data-visible="false">
+                        <b>Detail Message</b>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+					{% for log in logs %}
+					
+                <tr>
+                    <td> {{ log.id }}</td>
+                    <td> {{ log.date }}</td>
+                    <td> {{ log.time }}</td>
+                    <td> {{ log.source_ip }}</td>
+                    <td> {{ log.source_port }} </td>
+                    <td> {{ log.get_adr }}</td>
+                    <td> {{ log.os }}</td>
+                    <td> {{ log.browser }}</td>
+                    <td> {{ log.message }}</td>
+                    <td> {{ log.detailed_message }} </td>
+                </tr>
+					{% endfor %}
+				
+            </tbody>
+        </table>
+        <script> $(function() {
+        	var $result = $('#eventsResult');
+        	$('#eventsTable').on('all.bs.table', function(e, name, args) {})
+        		.on('click-row.bs.table', function(e, row, $element) {
+        		var text = "<strong>" + 'ID: ' + "</strong>" + row[0] +
+            "<br>" + "<strong>" + "Time: " + "</strong>" + row[2] + row[1] +
+            "<br>" + "<strong>" + "Source IP: " + "</strong>" + row[3] +
+            "<br>" + "<strong>" + "Source Port: " + "</strong>" + row[4] +
+            "<br>" + "<strong>" + "Get: " + "</strong>" + row[5] +
+            "<br>" + "<strong>" + "OS: " + "</strong>" + row[6] +
+            "<br>" + "<strong>" + "Browser: " + "</strong>" + row[7] +
+            "<br>" + "<strong>" + "Message: " + "</strong>" + row[8].split(" |").join("<br>") +
+            "<br>" + "<strong>" + "Detail message: " + "</strong>" + JSON.stringify(row[9]).split("\\n").join("<br>");
+            	document.getElementById("eventsResult").className = "alert alert-info";
+        		$result.html(text);
+        	});
+        });
+         </script>
+	<ul class="pagination">
+	{%- for page in pagination.iter_pages() %}
+	{% if page %}
+		{% if page != pagination.page %}
+			<li>
+				<a href="{{ url_for_other_page(page) }}">{{ page }}</a>
+			</li>
+		{% endif %}
+	{% endif %}
+	{%- endfor %}
+		{% if pagination.has_next %}
+			<li>
+                <a href="{{ url_for_other_page(pagination.page + 1)}}">Next &raquo;</a>
+            </li>
+		{% endif %}
+	</ul>
+   </div>
+</div>
+{% endblock %}

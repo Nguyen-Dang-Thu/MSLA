@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+	
+<div class="container">
+    <script src="/static/js/cpu.js"></script>
+    <script type="text/javascript" src="/static/js/canvasjs.min.js"></script>
+    <div class="col-md-10 col-md-offset-0 main">
+        <h1 class="page-header">Dashboard</h1>
+        <div class="row placeholders">
+            <div class="col-md-10 col-md-offset-0 placeholder">
+                <center>
+                    <div id="chartContainer" style="height: 400px; width: 150%;"></div> <!-- system monitor chart -->
+                </center>
+            </div>
+        </div>
+        <h2 class="sub-header"> User Login </h2>
+				{% for who in whoConnect %}
+        <h3 style = "text-indent: 50px;">{{ who }} </h3>
+				{% endfor %}
+        <h2 class="sub-header"> IP Address </h2>
+				{% for ip in ipadd %}
+        <h3 style = "text-indent: 50px;">{{ ip }} </h3>
+				{% endfor %}
+		<h2 class="sub-header"> Disk Usage </h2>
+		<div class="table-responsive">
+		<table class="table table-striped" >
+				<thead>
+		   			 <tr>
+						<th data-align="center"> <b>Device</b></th>
+						<th data-align="center"><b>Total</b></th>
+						<th data-align="center"><b>Used</b></th>
+						<th data-align="center"><b>Free</b></th>
+						<th data-align="center"><b>Use</b></th>
+						<th data-align="center"><b>Type</b></th>
+						<th data-align="center"><b>Mount</b></th>
+					</tr>
+	   			</thead>
+				<tbody>
+					{% for d in disk %}
+					<tr>
+						<td> {{ d[0] }}</td>
+						<td> {{ d[1] }}</td>
+						<td> {{ d[2] }}</td>
+						<td> {{ d[3] }}</td>
+						<td> {{ d[4] }} </td>
+						<td> {{ d[5] }}</td>
+						<td> {{ d[6] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			</div>
+    </div>
+</div>
+{% endblock %}

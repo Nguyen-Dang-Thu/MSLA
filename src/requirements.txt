@@ -1,0 +1,11 @@
+flask
+flask-sqlalchemy
+flask-wtf
+wtforms
+pymysql
+passlib
+psutil
+sqlparse==0.1.14
+ua-parser
+user-agents
+py_bcrypt

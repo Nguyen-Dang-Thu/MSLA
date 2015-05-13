@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+<script type="text/javascript" src="/static/js/canvasjs.min.js"></script>
+<script>
+	var total= {{ totalAttack }};
+	var jArray_attack = {{ attack|tojson }};
+	var jArray_os = {{ osAttack|tojson }};
+	var jArray_date = {{ date|tojson}};
+	var jArray_browser = {{ browser|tojson }} ;
+	var jArray_ip = {{ srcIP|tojson }};
+	</script>
+<script src="/static/js/attack.js" ></script>
+<div class="container">
+    <div class="col-md-12 col-md-offset-0 main">
+        <center>
+            <h1>
+                <strong>Report</strong>
+            </h1>
+        </center>
+        <h1 class="page-header">Attack analysic</h1>
+        <div class="row placeholders">
+            <div class="col-md-12 col-md-offset-0 placeholder">
+            <div class="alert alert-info"style="height: auto;">
+                <center>
+                    <div id="dateChart" style="height: 300px; width: 100%;"></div>
+                </center>
+            </div>
+            </div>
+        </div>
+        <br>
+            <h3 class="sub-header">Top OS and Browser</h3>
+            <br>
+            <div class="row placeholders">
+                <div class="col-md-5 col-md-offset-0 placeholder">
+                <div class="alert alert-info"style="height: auto; width:130%;">
+                    <center>
+                        <div id="browserChart" style="height: 300px; width: 100%;"></div>
+                    </center>
+                </div>
+                </div>
+                <div class="col-md-5 col-md-offset-2 placeholder">
+                <div class="alert alert-info"style="height: auto;">
+                    <center>
+                        <div id="osChart" style="height: 300px; width: 100%;"></div>
+                    </center>
+                </div>
+                </div>
+            </div>
+            <br>
+                <h3 class="sub-header">Top IP and Message</h3>
+                <br>
+                <div class="row placeholders">
+                    <div class="col-md-5 col-md-offset-0 placeholder">
+                    <div class="alert alert-info"style="height: auto;  width: 130%;">
+                        <center>
+                            <div id="attackChart" style="height: 300px; width: 100%;"></div>
+                        </center>
+                    </div>
+                    </div>
+                    <div class="col-md-5 col-md-offset-2 placeholder">
+                    <div class="alert alert-info"style="height: auto;">
+                        <center>
+                            <div id="ipChart" style="height: 300px; width: 100%;"></div>
+                        </center>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
