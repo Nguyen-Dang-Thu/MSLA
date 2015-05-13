@@ -56,14 +56,6 @@ CREATE TABLE IF NOT EXISTS `upload` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
---
--- Dumping data for table `upload`
---
-
-INSERT INTO `upload` (`id`, `path`, `filename`, `im`) VALUES
-(12, '/home/kma/ctf/msla/static/uploads/dc20c0fef8be0ab743b35cb06205409e', 'modsec_audit.log', 'False');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
