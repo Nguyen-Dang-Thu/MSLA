@@ -18,4 +18,6 @@ This is a small flask app for parse modsec_audit.log.
  1. `sudo ./prepare.sh` to install dependencies using apt.
  2. Install sqlsever, create a user, import modsec.sql to database.
  3. Change [src/config.py](https://github.com/Nguyen-Dang-Thu/MSLA/blob/master/src/config.py) line 8: kma:thudayne to your database user and password
- 4. `./run.py` to run modsec
+ 4. `chmod a+x run.py`
+ 5. `./run.py` to run modsec
+ 6. Access localhost:8080, user=kma, pass=thudayne
