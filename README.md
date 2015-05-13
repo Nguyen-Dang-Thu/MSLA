@@ -7,15 +7,12 @@ This is a small flask app for parse modsec_audit.log.
 #Overview
 ![System monitor.jpg]
 (/img/up1.png)
-
 ![Report.jpg]
 (/img/up2.png)
-
 ![Analytics.jpg]
-(/img/up2.png)
-
+(/img/up3.png)
 ![Log Manager.jpg]
-(/img/up2.png)
+(/img/up4.png)
 
 #Install
  1. `sudo ./prepare.sh` to install dependencies using apt.
