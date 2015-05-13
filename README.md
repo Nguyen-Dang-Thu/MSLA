@@ -7,7 +7,7 @@ This is a small flask app for parse modsec_audit.log.
 #Overview
 ![System monitor.jpg]
 (/img/up1.png)
-<div style="align-center;"> System Monitor</div>
+<center> System Monitor </center>
 ![Report.jpg]
 (/img/up2.png)
 ->Report Page<-
